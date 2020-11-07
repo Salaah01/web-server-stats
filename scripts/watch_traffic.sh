@@ -1,29 +1,35 @@
 #!/bin/bash
 # Watches the traffic by watching new entries stored into the access log.
 
+ACCESS_LOG_PATH_ENV_VAR='ACCESS_LOG_PATH'
+INC_PATTERN_ENV_VAR='ACCESS_LOG_INC_PATTERN'
+EXC_PATTERN_ENV_VAR='ACCESS_LOG_EX_PATTERN'
+
 usage() {
   echo "Usage ${0} [-pie]" >&2
+  echo "" >&2
+  echo "To save time, you might want to set environment variables to" >&2
+  echo "include and exclude patterns. Set \`${INC_PATTERN_ENV_VAR}\` and" >&2
+  echo "\`${EXC_PATTERN_ENV_VAR}\` to set include and exclude patterns" >&2
+  echo "respective" >&2
+  echo "" >&2
   echo "Watches the traffic by watching new entries stored into the access " >&2
   echo "log." >&2
   echo "  -p  ACCESS_LOG_PATH   Explicity specify the access log path or" >&2
   echo "                        store the path as an environment varable" >&2
-  echo "                        as ${ACCESS_LOG_PATH}" >&2
+  echo "                        as \`${ACCESS_LOG_PATH_ENV_VAR}\`" >&2
   echo "  -i  INCLUDE_PATTERN   Pattern to incude. Will be run with" >&2 
   echo "                        grep -iE." >&2
   echo "  -I                    Includes patterns that are set as an env" >&2
-  echo "                        var as ${ACCESS_LOG_INC_PATTERN}" >&2
+  echo "                        var as \`${INC_PATTERN_ENV_VAR}\`" >&2
   echo "                        Seperate with ':'" >&2
   echo "  -e  EXCLUDE_PATTERN   Pattern to exclude. Will be run with" >&2
   echo "                        grep -iEv" >&2
   echo "  -E                    Exclude patterns that are set as as an" >&2
-  echo "                        env var as ${ACCESS_LOG_EX_PATTERN}" >&2
+  echo "                        env var as \`${EXC_PATTERN_ENV_VAR}\`" >&2
   echo "                        Seperate with ':'" >&2
   exit 1
 }
-
-ACCESS_LOG_PATH_ENV_VAR='ACCESS_LOG_PATH'
-INC_PATTERN_ENV_VAR='ACCESS_LOG_INC_PATTERN'
-EXC_PATTERN_ENV_VAR='ACCESS_LOG_EX_PATTERN'
 
 ACCESS_LOG_PATH=$(printenv $ACCESS_LOG_PATH_ENV_VAR)
 INCLUDE_PATTERN=()
