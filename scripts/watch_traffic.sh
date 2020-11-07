@@ -1,9 +1,12 @@
 #!/bin/bash
 # Watches the traffic by watching new entries stored into the access log.
 
-ACCESS_LOG_PATH_ENV_VAR='ACCESS_LOG_PATH'
-INC_PATTERN_ENV_VAR='ACCESS_LOG_INC_PATTERN'
-EXC_PATTERN_ENV_VAR='ACCESS_LOG_EX_PATTERN'
+ENV_VAR_NAMES_FILE='../source/env_var_names.txt'
+
+ACCESS_LOG_PATH_ENV_VAR=$(cat ${ENV_VAR_NAMES_FILE} | grep ACCESS_LOG_PATH_ENV_VAR | awk -F '=' '{print $2}')
+INC_PATTERN_ENV_VAR=$(cat ${ENV_VAR_NAMES_FILE} | grep INC_PATTERN_ENV_VAR | awk -F '=' '{print $2}')
+EXC_PATTERN_ENV_VAR=$(cat ${ENV_VAR_NAMES_FILE} | grep EXC_PATTERN_ENV_VAR | awk -F '=' '{print $2}')
+
 
 usage() {
   echo "Usage ${0} [-pie]" >&2
