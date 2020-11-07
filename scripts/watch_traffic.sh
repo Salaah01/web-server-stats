@@ -54,7 +54,7 @@ while getopts p:Ii:Ee: OPTION; do
       done
       ;;
     e)
-      EXCLUDE_PATTERN+=("${OPTARG}")
+      EXCLUDE_PATTERN+=("(${OPTARG})")
       ;;
     E)
     if [[ $(printenv $EXC_PATTERN_ENV_VAR) == '' ]]; then
@@ -62,7 +62,7 @@ while getopts p:Ii:Ee: OPTION; do
       fi
       IFS=':' read -ra PATTERNS <<< "$(printenv $EXC_PATTERN_ENV_VAR)"
       for pattern in "${PATTERNS[@]}"; do
-        INCLUDE_PATTERN+=("${pattern}")
+        EXCLUDE_PATTERN+=("(${pattern})")
       done
       ;;
     ?)
